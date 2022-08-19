@@ -5,11 +5,11 @@ import tkinter as tk
 from threading import Thread
 from ctypes import windll
 from typing import Any, Tuple
-# from win32api import EnumDisplayMonitors
 
 import numpy as np
 
-
+# [TODO] Support multi-display
+# from win32api import EnumDisplayMonitors
 # def get_expanded_screen_info() -> Tuple[int]:
 #     xmin, ymin, xmax, ymax = 0, 0, 0, 0
 #     for winfo in EnumDisplayMonitors():
@@ -250,8 +250,6 @@ class Clock:
         )
 
         self.total_sec = 0
-        self.is_alive = True
-
         self.scales = (scale_l, scale_s)
         self.hands = (hand_h, hand_m, hand_s)
 
@@ -262,7 +260,6 @@ class Clock:
             hand.put()
 
         pin.put()
-        self.is_alive = True
 
     def _adjust(self) -> None:
         now = datetime.now()
@@ -294,7 +291,6 @@ class Clock:
         self.thread = Thread(target=loop, daemon=True)
         self.thread.start()
         self.canvas.master.mainloop()
-
 
 
 if __name__ == '__main__':
